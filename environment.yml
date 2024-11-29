@@ -9,3 +9,6 @@ dependencies:
   - geopandas=1.0.1
   - matplotlib=3.9.2
   - numpy=1.26.2
+  - folium=0.18.0
+  - branca=0.7.2
+  - mapclassify=2.8.1
