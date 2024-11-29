@@ -40,7 +40,8 @@ jobs:
             ipykernel
             jupyter_server
       - name: Build HTML Assets
-        run: myst build --html --execute
+        # FIXME: enable execution once it is scoped to particular notebooks
+        run: myst build --html # --execute
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
