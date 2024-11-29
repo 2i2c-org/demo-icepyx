@@ -26,7 +26,6 @@ project:
         - file: example_notebooks/IS2_data_read-in.md
         - file: example_notebooks/IS2_data_variables.md
         - file: example_notebooks/IS2_data_visualization.md
-        - file: example_notebooks/IS2_DEM_comparison_WIP.md
         - file: example_notebooks/QUEST_argo_data_access.md
 
 site:
