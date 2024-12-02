@@ -12,3 +12,6 @@ dependencies:
   - folium=0.18.0
   - branca=0.7.2
   - mapclassify=2.8.1
+  # Do not pin external dependencies
+  - jupyterlab
+  - jupytext
