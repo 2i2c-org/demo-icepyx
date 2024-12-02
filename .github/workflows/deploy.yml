@@ -42,6 +42,7 @@ jobs:
       - name: Build HTML Assets
         # FIXME: enable execution once it is scoped to particular notebooks
         run: myst build --html # --execute
+        shell: bash
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
