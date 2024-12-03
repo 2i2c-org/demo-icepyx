@@ -30,6 +30,5 @@ project:
         - file: example_notebooks/IS2_data_visualization.md
 
 site:
-  template: book-theme
   options:
     logo_text: Icepyx Demo
