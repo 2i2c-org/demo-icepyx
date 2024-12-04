@@ -8,7 +8,7 @@ project:
   # description:
   # keywords: []
   # authors: []
-  github: 2i2c-org/icepyx-demo
+  github: 2i2c-org/demo-icepyx
   jupyter:
     binder:
       url: https://binder.opensci.2i2c.cloud/
