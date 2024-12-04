@@ -5,18 +5,16 @@ jupytext:
     format_name: myst
     format_version: 0.13
     jupytext_version: 1.16.4
-kernelspec:
-  display_name: Python 3 (ipykernel)
-  language: python
-  name: python3
 ---
 
 +++ {"user_expressions": []}
 
 # ICESat-2 AWS cloud data access
+
 This notebook ({download}`download <IS2_cloud_data_access.ipynb>`) illustrates the use of icepyx for accessing ICESat-2 data currently available through the AWS (Amazon Web Services) us-west2 hub s3 data bucket.
 
 ## Notes
+
 1. ICESat-2 data became publicly available on the cloud on 29 September 2022. Thus, access methods and example workflows are still being developed by NSIDC, and the underlying code in icepyx will need to be updated now that these data (and the associated metadata) are available. We appreciate your patience and contributions (e.g. reporting bugs, sharing your code, etc.) during this transition!
 2. This example and the code it describes are part of ongoing development. Current limitations to using these features are described throughout the example, as appropriate.
 3. You **MUST** be working within an AWS instance. Otherwise, you will get a permissions error.
@@ -104,7 +102,7 @@ We can use the Variables module with an s3 url to explore available data variabl
 
 Notice that accessing cloud data requires two layers of authentication: 1) authenticating with your Earthdata Login 2) authenticating for cloud access. These both happen behind the scenes, without the need for users to provide any explicit commands.
 
-Icepyx uses earthaccess to generate your s3 data access token, which will be valid for *one* hour. Icepyx will also renew the token for you after an hour, so if viewing your token over the course of several hours you may notice the values will change.
+Icepyx uses earthaccess to generate your s3 data access token, which will be valid for _one_ hour. Icepyx will also renew the token for you after an hour, so if viewing your token over the course of several hours you may notice the values will change.
 
 If you do want to see your s3 credentials, you can access them using:
 
@@ -180,4 +178,5 @@ The slow load speed is a demonstration of the many steps involved in making clou
 +++ {"user_expressions": []}
 
 #### Credits
-* notebook by: Jessica Scheick and Rachel Wegener
+
+- notebook by: Jessica Scheick and Rachel Wegener

@@ -5,21 +5,19 @@ jupytext:
     format_name: myst
     format_version: 0.13
     jupytext_version: 1.16.4
-kernelspec:
-  display_name: python3
-  language: python
-  name: python3
 ---
 
 +++ {"user_expressions": []}
 
 # Reading ICESat-2 Data in for Analysis
+
 This notebook ({download}`download <IS2_data_read-in.ipynb>`) illustrates the use of icepyx for reading ICESat-2 data files, loading them into a data object.
 Currently the default data object is an Xarray Dataset, with ongoing work to provide support for other data object types.
 
 For more information on how to order and download ICESat-2 data, see the [icepyx data access tutorial](https://icepyx.readthedocs.io/en/latest/example_notebooks/IS2_data_access.html).
 
 ### Motivation
+
 Most often, when you open a data file, you must specify the underlying data structure and how you'd like the information to be read in.
 A simple example of this, for instance when opening a csv or similarly delimited file, is letting the software know if the data contains a header row, what the data type is (string, double, float, boolean, etc.) for each column, what the delimiter is, and which columns or rows you'd like to be loaded.
 Many ICESat-2 data readers are quite manual in nature, requiring that you accurately type out a list of string paths to the various data variables.
@@ -28,6 +26,7 @@ icepyx simplifies this process by relying on its awareness of ICESat-2 specific 
 Instead of needing to manually iterate through the beam pairs, you can provide a few options to the `Read` object and icepyx will do the heavy lifting for you (as detailed in this notebook).
 
 ### Approach
+
 If you're interested in what's happening under the hood: icepyx uses the [xarray](https://docs.xarray.dev/en/stable/) library to read in each of the requested variables of the dataset. icepyx formats each requested variable and then merges the read-in data from each of the variables to create a single data object. The use of xarray is powerful, because the returned data object can be used with relevant xarray processing tools.
 
 +++
@@ -40,9 +39,10 @@ import icepyx as ipx
 
 +++ {"user_expressions": []}
 
----------------------------------
+---
 
 ## Quick-Start Guide
+
 For those who might be looking into playing with this (but don't want all the details/explanations)
 
 ```{code-cell} ipython3
@@ -65,10 +65,12 @@ ds.plot.scatter(x="longitude", y="latitude", hue="h_li", vmin=-100, vmax=2000)
 
 +++ {"user_expressions": []}
 
----------------------------------------
+---
+
 ## Key steps for loading (reading) ICESat-2 data
 
 Reading in ICESat-2 data with icepyx happens in a few simple steps:
+
 1. Let icepyx know where to find your data (this might be local files or urls to data in cloud storage)
 2. Create an icepyx `Read` object
 3. Make a list of the variables you want to read in (does not apply for gridded products)
@@ -79,6 +81,7 @@ We go through each of these steps in more detail in this notebook.
 +++ {"user_expressions": []}
 
 ### Step 0: Get some data if you haven't already
+
 Here are a few lines of code to get you set up with a few data files if you don't already have some on your local system.
 
 ```{code-cell} ipython3
@@ -102,10 +105,11 @@ Previously, icepyx required you to explicitly use the `.earthdata_login()` funct
 
 Provide a full path to the data to be read in (i.e. opened).
 Currently accepted inputs are:
-* a string path to directory - all files from the directory will be opened
-* a string path to single file - one file will be opened
-* a list of filepaths - all files in the list will be opened
-* a glob string (see [glob](https://docs.python.org/3/library/glob.html)) - any files matching the glob pattern will be opened
+
+- a string path to directory - all files from the directory will be opened
+- a string path to single file - one file will be opened
+- a list of filepaths - all files in the list will be opened
+- a glob string (see [glob](https://docs.python.org/3/library/glob.html)) - any files matching the glob pattern will be opened
 
 ```{code-cell} ipython3
 path_root = '/full/path/to/your/data/'
@@ -116,7 +120,7 @@ path_root = '/full/path/to/your/data/'
 ```
 
 ```{code-cell} ipython3
-# list_of_files = ['/my/data/ATL06/processed_ATL06_20190226005526_09100205_006_02.h5', 
+# list_of_files = ['/my/data/ATL06/processed_ATL06_20190226005526_09100205_006_02.h5',
 #                  '/my/other/data/ATL06/processed_ATL06_20191202102922_10160505_006_01.h5']
 ```
 
@@ -128,9 +132,9 @@ path_root = '/full/path/to/your/data/'
 
 glob works using `*` and `?` as wildcard characters, where `*` matches any number of characters and `?` matches a single character. For example:
 
-* `/this/path/*.h5`: refers to all `.h5` files in the `/this/path` folder (Example matches: "/this/path/processed_ATL03_20191130221008_09930503_006_01.h5" or "/this/path/myfavoriteicsat-2file.h5")
-* `/this/path/*ATL07*.h5`: refers to all `.h5` files in the `/this/path` folder that have ATL07 in the filename. (Example matches: "/this/path/ATL07-02_20221012220720_03391701_005_01.h5" or "/this/path/processed_ATL07.h5")
-* `/this/path/ATL??/*.h5`: refers to all `.h5` files that are in a subfolder of `/this/path` and a subdirectory of `ATL` followed by any 2 characters (Example matches: "/this/path/ATL03/processed_ATL03_20191130221008_09930503_006_01.h5", "/this/path/ATL06/myfile.h5")
+- `/this/path/*.h5`: refers to all `.h5` files in the `/this/path` folder (Example matches: "/this/path/processed_ATL03_20191130221008_09930503_006_01.h5" or "/this/path/myfavoriteicsat-2file.h5")
+- `/this/path/*ATL07*.h5`: refers to all `.h5` files in the `/this/path` folder that have ATL07 in the filename. (Example matches: "/this/path/ATL07-02_20221012220720_03391701_005_01.h5" or "/this/path/processed_ATL07.h5")
+- `/this/path/ATL??/*.h5`: refers to all `.h5` files that are in a subfolder of `/this/path` and a subdirectory of `ATL` followed by any 2 characters (Example matches: "/this/path/ATL03/processed_ATL03_20191130221008_09930503_006_01.h5", "/this/path/ATL06/myfile.h5")
 
 See the glob documentation or other online explainer tutorials for more in depth explanation, or advanced glob paths such as character classes and ranges.
 
@@ -143,6 +147,7 @@ See the glob documentation or other online explainer tutorials for more in depth
 glob will not by default search all of the subdirectories for matching filepaths, but it has the ability to do so.
 
 If you would like to search recursively, you can achieve this by either:
+
 1. passing the `recursive` argument into `glob_kwargs` and including `\**\` in your filepath
 2. using glob directly to create a list of filepaths
 
@@ -272,7 +277,7 @@ ds = reader.load()
 
 Within a Jupyter Notebook, you can get a summary view of your data object.
 
-***ATTENTION: icepyx loads your data by creating an Xarray DataSet for each input granule and then merging them. In some cases, the automatic merge fails and needs to be handled manually. In these cases, icepyx will return a warning with the error message from the failed Xarray merge and a list of per-granule DataSets***
+**_ATTENTION: icepyx loads your data by creating an Xarray DataSet for each input granule and then merging them. In some cases, the automatic merge fails and needs to be handled manually. In these cases, icepyx will return a warning with the error message from the failed Xarray merge and a list of per-granule DataSets_**
 
 This can happen if you unintentionally provide the same granule multiple times with different filenames or in segmented products where the rgt+cycle automatically generated `gran_idx` values match. In this latter case, you can simply provide unique `gran_idx` values for each DataSet in `ds` and run `import xarray as xr` and `ds_merged = xr.merge(ds)` to create one merged DataSet.
 
@@ -302,8 +307,9 @@ Please let us know if you have any ideas or already have functions developed (we
 +++ {"user_expressions": []}
 
 #### Credits
-* original notebook by: Jessica Scheick
-* notebook contributors: Wei Ji and Tian
+
+- original notebook by: Jessica Scheick
+- notebook contributors: Wei Ji and Tian
 
 ```{code-cell} ipython3
 

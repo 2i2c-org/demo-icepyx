@@ -5,10 +5,6 @@ jupytext:
     format_name: myst
     format_version: 0.13
     jupytext_version: 1.16.4
-kernelspec:
-  display_name: Python 3 (ipykernel)
-  language: python
-  name: python3
 ---
 
 # Visualizing ICESat-2 Elevations
@@ -41,7 +37,7 @@ For details on minimum required inputs, please refer to [IS2_data_access](https:
 #Larsen C Ice Shelf
 short_name = 'ATL06'
 date_range = ['2020-7-1', '2020-8-1']
-spatial_extent = [-67, -70, -59, -65] 
+spatial_extent = [-67, -70, -59, -65]
 cycles = ['03']
 tracks = ['0948', '0872', '1184', '0186', '1123', '1009', '0445', '0369']
 ```
@@ -74,7 +70,8 @@ print(list(set(region.avail_granules(cycles=True)[0]))) #region.cycles
 print(list(set(region.avail_granules(tracks=True)[0]))) #region.tracks
 ```
 
-## Visualize spatial extent 
+## Visualize spatial extent
+
 By calling function `visualize_spatial_extent`, it will plot the spatial extent in red outline overlaid on a basemap, try zoom-in/zoom-out to see where is your interested region and what the geographic features look like in this region.
 
 ```{code-cell} ipython3
@@ -127,22 +124,28 @@ Previously, icepyx required you to explicitly use the `.earthdata_login()` funct
 ### Alternative Access Options to Visualize ICESat-2 elevation using OpenAltimetry API
 
 You can also view elevation data by importing the visualization module directly and initializing it with your query object or a list of parameters:
- ```python
- from icepyx.core.visualization import Visualize
- ```
- - passing your query object directly to the visualization module
- ```python
- region2 = ipx.Query(short_name, spatial_extent, date_range)
- vis = Visualize(region2)
- ```
- - creating a visualization object directly without first creating a query object
- ```python
- vis = Visualize(product=short_name, spatial_extent=spatial_extent, date_range=date_range)
- ```
+
+```python
+from icepyx.core.visualization import Visualize
+```
+
+- passing your query object directly to the visualization module
+
+```python
+region2 = ipx.Query(short_name, spatial_extent, date_range)
+vis = Visualize(region2)
+```
+
+- creating a visualization object directly without first creating a query object
+
+```python
+vis = Visualize(product=short_name, spatial_extent=spatial_extent, date_range=date_range)
+```
 
 +++
 
 #### Credits
-* Notebook by: [Tian Li](https://github.com/icetianli), [Jessica Scheick](https://github.com/JessicaS11) and 
-[Wei Ji](https://github.com/weiji14)
-* Source material: [READ_ATL06_DEM Notebook](https://github.com/ICESAT-2HackWeek/Assimilation/blob/master/contributors/icetianli/READ_ATL06_DEM.ipynb) by Tian Li and [Friedrich Knuth](https://github.com/friedrichknuth)
+
+- Notebook by: [Tian Li](https://github.com/icetianli), [Jessica Scheick](https://github.com/JessicaS11) and
+  [Wei Ji](https://github.com/weiji14)
+- Source material: [READ_ATL06_DEM Notebook](https://github.com/ICESAT-2HackWeek/Assimilation/blob/master/contributors/icetianli/READ_ATL06_DEM.ipynb) by Tian Li and [Friedrich Knuth](https://github.com/friedrichknuth)

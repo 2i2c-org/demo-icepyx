@@ -5,15 +5,12 @@ jupytext:
     format_name: myst
     format_version: 0.13
     jupytext_version: 1.16.4
-kernelspec:
-  display_name: python3
-  language: python
-  name: python3
 ---
 
 +++ {"user_expressions": []}
 
 # Subsetting ICESat-2 Data
+
 This notebook ({download}`download <IS2_data_access2-subsetting.ipynb>`) illustrates the use of icepyx for subsetting ICESat-2 data ordered through the NSIDC DAAC. We'll show how to find out what subsetting options are available and how to specify the subsetting options for your order.
 
 For more information on using icepyx to find, order, and download data, see our complimentary [ICESat-2 Data Access Notebook](https://icepyx.readthedocs.io/en/latest/example_notebooks/IS2_data_access.html).
@@ -66,11 +63,12 @@ Previously, icepyx required you to explicitly use the `.earthdata_login()` funct
 ## Discover Subsetting Options
 
 You can see what subsetting options are available for a given product by calling `show_custom_options()`. The options are presented as a series of headings followed by available values in square brackets. Headings are:
-* **Subsetting Options**: whether or not temporal and spatial subsetting are available for the data product
-* **Data File Formats (Reformatting Options)**: return the data in a format other than the native hdf5 (submitted as a key=value kwarg to `order_granules(format='NetCDF4-CF')`)
-* **Data File (Reformatting) Options Supporting Reprojection**: return the data in a reprojected reference frame. These will be available for gridded ICESat-2 L3B data products.
-* **Data File (Reformatting) Options NOT Supporting Reprojection**: data file formats that cannot be delivered with reprojection
-* **Data Variables (also Subsettable)**: a dictionary of variable name keys and the paths to those variables available in the product
+
+- **Subsetting Options**: whether or not temporal and spatial subsetting are available for the data product
+- **Data File Formats (Reformatting Options)**: return the data in a format other than the native hdf5 (submitted as a key=value kwarg to `order_granules(format='NetCDF4-CF')`)
+- **Data File (Reformatting) Options Supporting Reprojection**: return the data in a reprojected reference frame. These will be available for gridded ICESat-2 L3B data products.
+- **Data File (Reformatting) Options NOT Supporting Reprojection**: data file formats that cannot be delivered with reprojection
+- **Data Variables (also Subsettable)**: a dictionary of variable name keys and the paths to those variables available in the product
 
 ```{code-cell} ipython3
 region_a.show_custom_options(dictview=True)
@@ -107,6 +105,7 @@ Thus, this notebook uses a default list of wanted variables to showcase subsetti
 +++ {"user_expressions": []}
 
 ### Determine what variables are available for your data product
+
 There are multiple ways to get a complete list of available variables.
 To increase readability, some display options (2 and 3, below) show the 200+ variable + path combinations as a dictionary where the keys are variable names and the values are the paths to that variable.
 
@@ -167,6 +166,7 @@ region_a.download_granules('/home/jovyan/icepyx/dev-notebooks/vardata') # <-- yo
 ```
 
 ### _Why does the subsetter say no matching data was found?_
+
 _Sometimes, granules ("files") returned in our initial search end up not containing any data in our specified area of interest._
 _This is because the initial search is completed using summary metadata for a granule._
 _You've likely encountered this before when viewing available imagery online: your spatial search turns up a bunch of images with only a few border or corner pixels, maybe even in no data regions, in your area of interest._
@@ -185,6 +185,7 @@ fn = ''
 ```
 
 ## Check the downloaded data
+
 Get all `latitude` variables in your downloaded file:
 
 ```{code-cell} ipython3
@@ -194,14 +195,14 @@ varlist = []
 def IS2h5walk(vname, h5node):
     if isinstance(h5node, h5py.Dataset):
         varlist.append(vname)
-    return 
+    return
 
 with h5py.File(fn,'r') as h5pt:
     h5pt.visititems(IS2h5walk)
-    
+
 for tvar in varlist:
     vpath,vn = os.path.split(tvar)
-    if vn==varname: print(tvar) 
+    if vn==varname: print(tvar)
 ```
 
 ### Compare to the variable paths available in the original data
@@ -211,5 +212,6 @@ region_a.order_vars.parse_var_list(region_a.order_vars.avail)[0][varname]
 ```
 
 #### Credits
-* notebook contributors: Zheng Liu, Jessica Scheick, and Amy Steiker
-* some source material: [NSIDC Data Access Notebook](https://github.com/ICESAT-2HackWeek/ICESat2_hackweek_tutorials/tree/main/03_NSIDCDataAccess_Steiker) by Amy Steiker and Bruce Wallin
+
+- notebook contributors: Zheng Liu, Jessica Scheick, and Amy Steiker
+- some source material: [NSIDC Data Access Notebook](https://github.com/ICESAT-2HackWeek/ICESat2_hackweek_tutorials/tree/main/03_NSIDCDataAccess_Steiker) by Amy Steiker and Bruce Wallin
