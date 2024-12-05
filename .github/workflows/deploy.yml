@@ -40,6 +40,9 @@ jobs:
             ipykernel
             jupyter_server
       - name: Build HTML Assets
+        env: # Or as an environment variable
+          EARTHDATA_USERNAME: ${{ secrets.EARTHDATA_USERNAME }}
+          EARTHDATA_PASSWORD: ${{ secrets.EARTHDATA_PASSWORD }}
         run: myst build --html --execute
         shell: micromamba-shell {0}
       - name: Upload artifact
