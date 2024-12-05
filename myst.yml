@@ -22,6 +22,7 @@ project:
     - title: Quest Example
       file: content/QUEST_argo_data_access.md
     - title: Tutorials
+      file: content/tutorials.md
       children:
         - file: content/IS2_data_access.md
         - file: content/IS2_data_access2-subsetting.md
