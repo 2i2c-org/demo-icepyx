@@ -15,6 +15,12 @@ kernelspec:
 
 # QUEST Example: Finding Argo and ICESat-2 data
 
+![](xref:gallery#note-launcher)
+
+:::{note}
+This demo is pre-computed. Re-running it in-browser will not change the output!
+:::
+
 In this notebook, we are going to find Argo and ICESat-2 data over a region of the Pacific Ocean. Normally, we would require multiple data portals or Python packages to accomplish this. However, thanks to the [QUEST (Query, Unify, Explore SpatioTemporal) module](https://icepyx.readthedocs.io/en/latest/contributing/quest-available-datasets.html), we can use icepyx to find both!
 
 ```{code-cell} ipython3
@@ -35,8 +41,9 @@ import icepyx as ipx
 QUEST builds off of the general querying process originally designed for ICESat-2, but makes it applicable to other datasets.
 
 Just like the ICESat-2 Query object, we begin by defining our Quest object. We provide the following bounding parameters:
-* `spatial_extent`: Data is constrained to the given box over the Pacific Ocean.
-* `date_range`: Only grab data from April 18-19, 2022 (to keep download sizes small for this example).
+
+- `spatial_extent`: Data is constrained to the given box over the Pacific Ocean.
+- `date_range`: Only grab data from April 18-19, 2022 (to keep download sizes small for this example).
 
 ```{code-cell} ipython3
 # Spatial bounds, given as SW/NE corners
@@ -60,7 +67,8 @@ Notice that we have defined our spatial and temporal domains, but we do not have
 ## Getting the data
 
 Let's first query the ICESat-2 data. If we want to extract information about the water column, the ATL03 product is likely the desired choice.
-* `short_name`: ATL03
+
+- `short_name`: ATL03
 
 ```{code-cell} ipython3
 # ICESat-2 product
@@ -98,7 +106,7 @@ reg_a.add_argo()
 
 When accessing Argo data, the variables of interest will be organized as vertical profiles as a function of pressure. By default, only temperature is queried, so the user should supply a list of desired parameters using the code below. The user may also limit the pressure range of the returned data by passing `presRange="0,200"`.
 
-*Note: Our example shows only physical Argo float parameters, but the process is identical for including BGC float parameters.*
+_Note: Our example shows only physical Argo float parameters, but the process is identical for including BGC float parameters._
 
 ```{code-cell} ipython3
 # Customized variable query to retrieve salinity instead of temperature
@@ -169,7 +177,7 @@ reader = ipx.Read(data_source=path+filename)
 
 ```{code-cell} ipython3
 # decide which portions of the file to read in
-reader.vars.append(beam_list=['gt2l'], 
+reader.vars.append(beam_list=['gt2l'],
                    var_list=['h_ph', "lat_ph", "lon_ph", 'signal_conf_ph'])
 ```
 
@@ -208,11 +216,11 @@ argo_df = reg_a.datasets['argo'].argodata
 
 ```{code-cell} ipython3
 # Convert both DataFrames into GeoDataFrames
-is2_gdf = gpd.GeoDataFrame(is2_pd_ocean, 
+is2_gdf = gpd.GeoDataFrame(is2_pd_ocean,
                            geometry=gpd.points_from_xy(is2_pd_ocean['lon_ph'], is2_pd_ocean['lat_ph']),
                            crs='EPSG:4326'
 )
-argo_gdf = gpd.GeoDataFrame(argo_df, 
+argo_gdf = gpd.GeoDataFrame(argo_df,
                             geometry=gpd.points_from_xy(argo_df.lon, argo_df.lat),
                             crs='EPSG:4326'
 )
@@ -220,7 +228,7 @@ argo_gdf = gpd.GeoDataFrame(argo_df,
 
 +++ {"user_expressions": []}
 
-To view the relative locations of ICESat-2 and Argo, the below cell uses the `explore()` function from GeoPandas. The time variables cause errors in the function, so we will drop those variables first. 
+To view the relative locations of ICESat-2 and Argo, the below cell uses the `explore()` function from GeoPandas. The time variables cause errors in the function, so we will drop those variables first.
 
 Note that for large datasets like ICESat-2, loading the map might take a while.
 
