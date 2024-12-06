@@ -1,7 +1,7 @@
 # See docs at: https://mystmd.org/guide/frontmatter
 version: 1
 extends:
-  - https://raw.githubusercontent.com/2i2c-org/demo-gallery/refs/heads/main/myst.shared.yaml
+  - https://raw.githubusercontent.com/2i2c-org/demo-shared-content/refs/heads/main/myst.shared.yaml
 project:
   id: 41b4b110-5775-4a8d-9680-f364ad348fb8
   # title:
@@ -10,7 +10,7 @@ project:
   # authors: []
   github: 2i2c-org/demo-icepyx
   references:
-    gallery: https://2i2c.org/demo-gallery
+    shared: https://2i2c.org/demo-shared-content
   jupyter:
     binder:
       url: https://binder.opensci.2i2c.cloud/
