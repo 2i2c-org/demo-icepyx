@@ -15,7 +15,7 @@ kernelspec:
 
 # QUEST Example: Finding Argo and ICESat-2 data
 
-![](xref:gallery#note-launcher)
+![](xref:shared#note-launcher)
 
 :::{note}
 This demo is pre-computed. Re-running it in-browser will not change the output!
