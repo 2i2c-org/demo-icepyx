@@ -14,6 +14,7 @@ project:
   jupyter:
     binder:
       url: https://binder.opensci.2i2c.cloud/
+      repo: https://github.com/2i2c-org/demo-icepyx/
 
   # To autogenerate a Table of Contents, run "myst init --write-toc"
   toc:
