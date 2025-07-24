@@ -17,9 +17,9 @@ kernelspec:
 
 ![](xref:shared#note-launcher)
 
-:::{note}
+```{note}
 This demo is pre-computed. Re-running it in-browser will not change the output!
-:::
+```
 
 In this notebook, we are going to find Argo and ICESat-2 data over a region of the Pacific Ocean. Normally, we would require multiple data portals or Python packages to accomplish this. However, thanks to the [QUEST (Query, Unify, Explore SpatioTemporal) module](https://icepyx.readthedocs.io/en/latest/contributing/quest-available-datasets.html), we can use icepyx to find both!
 
